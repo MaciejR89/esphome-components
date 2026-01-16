@@ -99,12 +99,12 @@ sensor:
 
 Then in logs you will have trace with telegram:
 ```
-[10:05:05.452][I][wmbus:100]: apator_op04 [0x********] RSSI: -80dBm T: 61440106164004101A078CC01E7AEF00508521B465B4525E63928C3A31E2A21E6F6A6A5F8B2B3C6554F02134937421191B58DBACAC8CC22DBF8011334C124B06E7955062EC36270760B2D45AF1A5DD8EE534A08F2B259241F3A3308EC65093AE9F45 (98) T1 A
-[10:05:05.465][D][meters.cpp:1985]: (meter) created ESPHome apator_op04 10044016 encrypted
-[10:05:05.470][D][meters.cpp:909]: (meter) ESPHome(0) apator_op04  handling telegram from 10044016.M=APA.V=1a.T=07
-[10:05:05.489][D][Telegram.cpp:563]: (telegram) ELL CI=8c CC=c0 (bidir fast_resp) ACC=1e
-[10:05:05.503][D][sensor:135]: 'Zimna woda sygnał': Sending state -80.00000 dBm with 0 decimals of accuracy
-[10:05:05.509][D][sensor:135]: 'Zimna woda': Sending state 33.99400 m³ with 3 decimals of accuracy
+[12:23:13.376][I][wmbus:100]: apator_op04 [0x********] RSSI: -82dBm T: 71440106010104101A078CC0477A53306085592FDF3018AE4AEFC0C7CE6E8EF21C6984F36E9B5CBB2128B0BC1DD3DE8C9B1779AA4990820972699F461E241ECE89554D3AEAF6A761941EB5042B32BE7333154A5331594FAF3BA294221CFDEA25D9D89B196A161DF8FDCDAE7E321C36BE6089 (114) T1 A
+[12:23:13.383][D][meters.cpp:1985]: (meter) created ESPHome apator_op04 10040101 encrypted
+[12:23:13.397][D][meters.cpp:909]: (meter) ESPHome(0) apator_op04  handling telegram from 10040101.M=APA.V=1a.T=07
+[12:23:13.406][D][Telegram.cpp:563]: (telegram) ELL CI=8c CC=c0 (bidir fast_resp) ACC=47
+[12:23:13.414][D][sensor:135]: 'Ciepła woda sygnał': Sending state -82.00000 dBm with 0 decimals of accuracy
+[12:23:13.429][D][sensor:135]: 'Ciepła woda': Sending state 40.02300 m³ with 3 decimals of accuracy
 ```
 
 

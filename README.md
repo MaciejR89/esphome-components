@@ -107,8 +107,11 @@ Then in logs you will have trace with telegram:
 [10:05:05.509][D][sensor:135]: 'Zimna woda': Sending state 33.99400 m³ with 3 decimals of accuracy
 ```
 
-```
 
-## 3. Author & License
+## 3. Results
 
-Szczepan, Maciejr GPL, 2026
+![Results](docs/ciepła.jpg)
+
+## 4. Author & License
+
+ SzczepanLeon, MaciejR89 / GPL, 2026

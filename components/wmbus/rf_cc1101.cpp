@@ -13,9 +13,19 @@ namespace wmbus {
     this->gdo2 = gdo2;
     pinMode(this->gdo0, INPUT);
     pinMode(this->gdo2, INPUT);
+
+    pinMode(clk, OUTPUT);
+    pinMode(mosi, OUTPUT);
+    pinMode(miso, INPUT);
+    pinMode(cs, OUTPUT);
+  
+    ESP_LOGE(TAG, "Before CC1101 setSpiPin");
     ELECHOUSE_cc1101.setSpiPin(clk, miso, mosi, cs);
 
+    ESP_LOGE(TAG, "Before CC1101 Init");
     ELECHOUSE_cc1101.Init();
+
+    ESP_LOGE(TAG, "After CC1101 Init");
 
     for (uint8_t i = 0; i < TMODE_RF_SETTINGS_LEN; i++) {
       ELECHOUSE_cc1101.SpiWriteReg(TMODE_RF_SETTINGS_BYTES[i << 1],

@@ -1,11 +1,3 @@
-Główną przyczyną zatrzymania kompilacji (błędem krytycznym) było jedno miejsce w **linii 423**, gdzie pozostało dawne wywołanie `client.ip.str().c_str()`. Pozostałe zgłoszenia to ostrzeżenia dotyczące specyfikatorów formatu (klasyczny problem na ESP32 przy 32-bitowych zmiennych `uint32_t` w nowych wersjach kompilatora).
-
-Oto kompletny, poprawiony kod pliku `wmbus.cpp`, w którym:
-
-1. Naprawiono błąd z `client.ip.str().c_str()` w funkcji `dump_config()`.
-2. Poprawiono typowanie i formatowanie `%lu` / `%PRIu32` w `ESP_LOGCONFIG` i `ESP_LOGI`, aby wyeliminować wszystkie ostrzeżenia kompilatora.
-
-```cpp
 #include "wmbus.h"
 #include "version.h"
 

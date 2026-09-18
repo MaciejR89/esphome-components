@@ -74,7 +74,7 @@ namespace wmbus {
         if (this->log_all_ || meter_in_config) { //No need to do sth if logging is disabled and meter is not configured
 
           auto detected_drv_info      = pickMeterDriver(&t);
-          std::string detected_driver = detected_drv_info.name().str();
+          std::string detected_driver = (detected_drv_info.name().str().empty() ? "" : detected_drv_info.name().str().c_str());
 
           //If the driver was explicitly stated in meter config, use that driver instead on detected one
           auto used_drv_info      = detected_drv_info;
@@ -97,7 +97,7 @@ namespace wmbus {
           }
 
           this->led_blink();
-          ESP_LOGI(TAG, "%s [0x%08" PRIx32 "] RSSI: %ddBm T: %s %c1 %c",
+          ESP_LOGI(TAG, "%s [0x%08x] RSSI: %ddBm T: %s %c1 %c",
                     (used_driver.empty()? "Unknown!" : used_driver.c_str()),
                     meter_id,
                     mbus_data.rssi,
@@ -348,9 +348,9 @@ namespace wmbus {
                   ESP_LOGV(TAG, "Will send RTLWMBUS telegram to %s:%d via TCP", client.ip.str_to(ip_buf), client.port);
                   if (this->tcp_client_.connect(client.ip.str_to(ip_buf), client.port)) {
                     this->tcp_client_.printf("%c1;1;1;%s;%d;;;0x",
-                                              mbus_data.mode,
-                                              telegram_time,
-                                              mbus_data.rssi);
+                                             mbus_data.mode,
+                                             telegram_time,
+                                             mbus_data.rssi);
                     for (int i = 0; i < mbus_data.frame.size(); i++) {
                       this->tcp_client_.printf("%02X", mbus_data.frame[i]);
                     }
@@ -430,7 +430,7 @@ namespace wmbus {
     if (this->led_pin_ != nullptr) {
       ESP_LOGCONFIG(TAG, "  LED:");
       LOG_PIN("    Pin: ", this->led_pin_);
-      ESP_LOGCONFIG(TAG, "    Duration: %" PRIu32 " ms", this->led_blink_time_);
+      ESP_LOGCONFIG(TAG, "    Duration: %d ms", this->led_blink_time_);
     }
 #ifdef USE_ESP32
     ESP_LOGCONFIG(TAG, "  Chip ID: %012llX", ESP.getEfuseMac());
@@ -438,7 +438,7 @@ namespace wmbus {
     ESP_LOGCONFIG(TAG, "  CC1101 frequency: %3.3f MHz", this->frequency_);
     ESP_LOGCONFIG(TAG, "  CC1101 SPI bus:");
     if (this->is_failed()) {
-      ESP_LOGE(TAG, "    Check connection to CC1101!");
+      ESP_LOGE(TAG, "   Check connection to CC1101!");
     }
     LOG_PIN("    MOSI Pin: ", this->spi_conf_.mosi);
     LOG_PIN("    MISO Pin: ", this->spi_conf_.miso);
@@ -450,9 +450,7 @@ namespace wmbus {
     for (DriverInfo* p : allDrivers()) {
       drivers += p->name().str() + ", ";
     }
-    if (drivers.size() >= 2) {
-      drivers.erase(drivers.size() - 2);
-    }
+    drivers.erase(drivers.size() - 2);
     ESP_LOGCONFIG(TAG, "  Available drivers: %s", drivers.c_str());
     for (const auto &ele : this->wmbus_listeners_) {
       ele.second->dump_config();
@@ -468,7 +466,7 @@ namespace wmbus {
       key.erase(key.size() - 5);
     }
     ESP_LOGCONFIG(TAG, "  Meter:");
-    ESP_LOGCONFIG(TAG, "    ID: %" PRIu32 " [0x%08" PRIX32 "]", (uint32_t)this->id, (uint32_t)this->id);
+    ESP_LOGCONFIG(TAG, "    ID: %zu [0x%08X]", this->id, this->id);
     ESP_LOGCONFIG(TAG, "    Type: %s", ((this->type).empty() ? "auto detect" : this->type.c_str()));
     ESP_LOGCONFIG(TAG, "    Key: '%s'", key.c_str());
     for (const auto &ele : this->fields) {
